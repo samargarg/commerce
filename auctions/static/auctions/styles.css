@@ -1,11 +1,13 @@
 body {
-    font-family: 'Exo';font-size: 22px;
+    font-family: 'Montserrat Alternates';font-size: 22px;
 }
 
 #logo {
+    font-family: 'Luckiest Guy';font-size: 22px;
     font-size: 80px;
     padding: 0px;
     margin: 0px;
+    margin-top: 30px;
     margin-left: 100px;
     color: #2f2f2b;
     font-weight: 100;
@@ -143,6 +145,7 @@ body {
     padding: 10px;
     font-size: 20px;
     outline: none;
+    font-family: 'Montserrat Alternates';font-size: 22px;
 }
 .contentbox #bid-form #bidbutton {
     width: 100%;
@@ -204,6 +207,8 @@ body {
     font-weight: lighter;
     margin-top: 2%;
     margin-bottom: 2%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
 }
 #bottombox .bottom-subbox .subtext #comment-name{
     background-color: #ff702a;
@@ -224,6 +229,7 @@ body {
     height: 100px;
     margin: 0px;
     color: #2f2f2b;
+    font-family: 'Montserrat Alternates';font-size: 22px;
 }
 #bottombox .comment-form input {
     width: 100%;
@@ -234,6 +240,7 @@ body {
     font-weight: bolder;
     border: 0px solid;
     transition: background-color 0.6s;
+    font-family: 'Montserrat Alternates';font-size: 22px;
 }
 #bottombox .comment-form input:hover {
     background-color: #dd4a00;
@@ -290,7 +297,8 @@ body {
     font-size: 20px;
     margin: 10px;
     color: #2f2f2b;
-    border: 0px solid white
+    border: 0px solid white;
+    font-family: 'Montserrat Alternates';font-size: 22px;
 }
 .page-form .form-button, select {
     width: 51.8%;
@@ -299,6 +307,7 @@ body {
     margin: 10px;
     color: #2f2f2b;
     border: 0px solid #ff702a;
+    font-family: 'Montserrat Alternates';font-size: 22px;
 }
 .page-form .form-button {
     background-color: #ff702a;
