@@ -1,0 +1,116 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<div class="bigbox">
+    <div class="imgbox">
+        <img src="{{ listing.photo }}" alt="">
+    </div>
+    <div class="contentbox">
+        <h1 id="title">{{ listing.title }}</h1>
+
+        <h3 id="inactive"> 
+            {% if not listing.active %}
+                INACTIVE
+                <hr>
+                {% if user.is_authenticated and user == listing.winner %}
+                    You Have Won The Bid
+                {% endif %}
+            {% endif %}
+        </h3>
+
+        
+        {% if user == listing.seller and listing.active %}
+            <a id="closebid" href="{% url 'auctions:closebid' listing.id %}">CLOSE BID</a>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            {% if listing in user.watchlist.all %}
+                <h5>WATCHLIST <i class="fas fa-check"></i></h5>
+            {% endif %} 
+        {% endif %}
+
+        <div id="details">
+            <div class="detail">Listed By : {{ listing.seller.first_name }} {{ listing.seller.last_name }}</div>
+            <div class="detail">Created : {{ listing.created.date }}</div>
+            <div class="detail">Category : {{ listing.category.capitalize }}</div>
+            <div class="detail">Base Price : &#8377;{{ listing.basePrice }}</div>
+        </div>
+
+        {% if not maxBid %}
+            <h2 class="current-price">&#8377;{{ listing.basePrice }}</h2>
+        {% else %}
+            <h2 class="current-price">&#8377;{{ maxBid.amount }}</h2>
+        {% endif %}
+
+        {% if listing.active %}
+        
+            <h6>
+                <span>{{ listing.bids.count }} bid(s) so far.</span>
+                <span>
+                    {% if user.is_authenticated and maxBid and user == maxBid.user %}
+                        Your bid is the current bid.
+                    {% endif %}
+                </span>
+            </h6>
+
+            {% if user.is_authenticated %}
+                <form id="bid-form", action="{% url 'auctions:listing' listing.id %}" method="post">
+                    {% csrf_token %}
+                    {{ bidForm }}
+                    <input id="bidbutton" type="submit" value="PLACE BID">
+                    {% if message %}
+                        {{ message }}
+                    {% endif %}
+                </form>
+            {% else %}
+                <a id="logintobid" href="{% url 'auctions:login' %}">LOGIN TO BID</a>
+            {% endif %}
+            
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            {% if listing in user.watchlist.all %}
+                <a class="watchlist-button" href="{% url 'auctions:removefromwatchlist' listing.id %}">Remove From Watchlist <i class="fas fa-trash-alt"></i></a>
+            {% else %}
+                <a class="watchlist-button" href="{% url 'auctions:addtowatchlist' listing.id %}">Add To Watchlist <i class="fas fa-plus-circle"></i></a>
+            {% endif %} 
+        {% endif %}
+
+    </div>
+</div>
+
+<div id="bottombox">
+    <div id="description" class="bottom-subbox">
+        <h2 class="subheading"><i class="fas fa-arrow-circle-right"></i> Description</h2>
+        <div class="subtext">{{ listing.description }}</div>
+    </div>
+
+    <div id="comments" class="bottom-subbox">
+        <h2 class="subheading"><i class="fas fa-arrow-circle-right"></i> Comments</h2>
+
+        {% for comment in listing.comments.all %}
+            <div class="subtext">
+                {% if user.is_authenticated and user == comment.user %}
+                    <span id="comment-name">Your Comment</span>
+                {% else %}
+                    <span id="comment-name">{{ comment.user.first_name }} {{ comment.user.last_name }}</span>
+                {% endif %}
+                <hr>
+                <div>{{ comment.content }}</div>
+            </div>
+        {% empty %}
+            <div id="comment-empty">No Comments!</div>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+            <form class="comment-form" action="{% url 'auctions:addcomment' listing.id %}" method="post">
+                {% csrf_token %}
+                {{ commentForm }}
+                <input type="submit" value="Submit Comment">
+            </form>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

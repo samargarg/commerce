@@ -1,19 +1,18 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h1 class="heading">Active Listings</h1>
+    <h1 class="heading">Watchlist</h1>
     <hr>
     <div class="container">
-        {% for listing in listings %}
+        {% for listing in watchlist %}
             <div class="listing">
                 <h2><a href="{% url 'auctions:listing' listing.id %}">{{ listing.title }}</a></h2>
                 <h5>Created : {{ listing.created.date }}</h5>
                 <img class="listing-photo" src="{{ listing.photo }}" alt="">
-                <h3>&#8377;{{ listing.hotPrice }}</h3>
+                <h3>HOT PRICE : &#8377;{{ listing.hotPrice }}</h3>
             </div>
         {% empty %}
             <h3 class="nothing">Sorry, Nothing Here! <i class="fas fa-heart-broken"></i></h3>
         {% endfor %}
     </div>
-
 {% endblock %}
