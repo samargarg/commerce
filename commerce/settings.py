@@ -80,6 +80,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+final
 
 AUTH_USER_MODEL = 'auctions.User'
 
